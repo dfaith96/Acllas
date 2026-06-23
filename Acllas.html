@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acllas College | AI Initiative</title>
+  <style>
+    :root {
+      --ink: #18212f;
+      --muted: #5b6675;
+      --line: #d9e0e8;
+      --paper: #f7f9fc;
+      --white: #ffffff;
+      --blue: #175cd3;
+      --teal: #057a79;
+      --gold: #b7791f;
+      --green: #237a4b;
+      --shadow: 0 18px 45px rgba(24, 33, 47, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      background: #10243d;
+      color: #e8eef7;
+      font-size: 0.9rem;
+    }
+
+    .topbar-inner,
+    .nav,
+    .section,
+    .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 8px 0;
+    }
+
+    .topbar-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid rgba(217, 224, 232, 0.85);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 74px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      border-radius: 8px;
+      font-weight: 900;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.72rem;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 11px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      min-height: 42px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--blue);
+      box-shadow: 0 10px 22px rgba(23, 92, 211, 0.24);
+    }
+
+    .btn-secondary {
+      color: var(--ink);
+      background: white;
+      border-color: var(--line);
+    }
+
+    .hero {
+      min-height: calc(100vh - 116px);
+      display: flex;
+      align-items: end;
+      background:
+        linear-gradient(90deg, rgba(10, 26, 47, 0.88), rgba(10, 26, 47, 0.42) 58%, rgba(10, 26, 47, 0.12)),
+        url("https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1800&q=80") center/cover;
+      color: white;
+    }
+
+    .hero-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 92px 0 54px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 38px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #c7f5ef;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 790px;
+      font-size: clamp(2.6rem, 7vw, 5.7rem);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px 0 28px;
+      color: #edf5ff;
+      font-size: clamp(1rem, 1.6vw, 1.22rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfdff;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.45rem;
+      color: var(--blue);
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    main {
+      background: var(--paper);
+    }
+
+    .section {
+      padding: 76px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.05;
+    }
+
+    .section-header p {
+      max-width: 520px;
+      color: var(--muted);
+      margin: 0;
+      font-size: 1.02rem;
+    }
+
+    .program-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 24px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: #334155;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 8px 22px rgba(24, 33, 47, 0.06);
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: white;
+      background: var(--teal);
+      margin-bottom: 18px;
+      font-weight: 900;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .features-wrap {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .feature-summary {
+      background: #10243d;
+      color: white;
+      border-radius: 8px;
+      padding: 28px;
+      position: sticky;
+      top: 98px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-summary h3 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+    }
+
+    .feature-summary p {
+      color: #d8e4f3;
+      margin: 0 0 18px;
+    }
+
+    .feature-summary ul {
+      margin: 0;
+      padding-left: 19px;
+      color: #e8eef7;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      min-height: 220px;
+    }
+
+    .feature-card .card-icon {
+      background: var(--blue);
+    }
+
+    .ai-band {
+      background: #0f2237;
+      color: white;
+    }
+
+    .ai-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .ai-layout h2 {
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      margin: 0 0 18px;
+    }
+
+    .ai-layout p {
+      color: #d8e4f3;
+    }
+
+    .ai-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ai-item {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .ai-item b {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: #e9b949;
+      color: #1f2937;
+    }
+
+    .ai-item h3 {
+      margin: 0 0 4px;
+      font-size: 1.06rem;
+    }
+
+    .ai-item p {
+      margin: 0;
+      color: #cdd9e8;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .campus-photo {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      border-radius: 8px;
+      background:
+        linear-gradient(0deg, rgba(15, 34, 55, 0.18), rgba(15, 34, 55, 0.02)),
+        url("assets/campus-life.jpg") center/cover;
+      box-shadow: var(--shadow);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .step b {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      color: white;
+      background: var(--green);
+      border-radius: 8px;
+    }
+
+    .step h3 {
+      margin: 0 0 3px;
+      font-size: 1rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .cta {
+      background: white;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: #f0f7ff;
+      border: 1px solid #cfe1fb;
+      border-radius: 8px;
+      padding: 28px;
+    }
+
+    .cta h2 {
+      margin: 0 0 6px;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+    }
+
+    .cta p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      background: #10243d;
+      color: #dce7f5;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, 1fr);
+      gap: 26px;
+      padding: 44px 0;
+    }
+
+    footer h3,
+    footer h4 {
+      color: white;
+      margin: 0 0 12px;
+    }
+
+    footer p,
+    footer a {
+      color: #b9c7d8;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .hero-inner,
+      .ai-layout,
+      .split,
+      .features-wrap,
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .section-header,
+      .cta-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-summary {
+        position: static;
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .nav {
+        min-height: 66px;
+      }
+
+      .nav-actions .btn-secondary {
+        display: none;
+      }
+
+      .hero-inner {
+        padding: 70px 0 34px;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 54px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>Applications open for the 2026 AI Scholars cohort</span>
+      <div class="topbar-links">
+        <a href="#admissions">Admissions</a>
+        <a href="#visit">Visit</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#">
+        <span class="mark">A</span>
+        <span>Acllas College<small>Learning, research, and responsible AI</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#programs">Programs</a>
+        <a href="#features">Features</a>
+        <a href="#ai">AI Initiative</a>
+        <a href="#campus">Campus Life</a>
+        <a href="#admissions">Admissions</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#visit">Visit</a>
+        <a class="btn btn-primary" href="#admissions">Apply</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">Acllas AI Initiative</span>
+        <h1>A college built for human talent in the age of AI.</h1>
+        <p>Acllas College blends rigorous academics, hands-on research, and ethical artificial intelligence so students graduate ready to solve real problems in science, business, health, education, and public service.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ai">Explore AI Initiative</a>
+          <a class="btn btn-secondary" href="#programs">View Programs</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="College highlights">
+        <h2>2026 Academic Snapshot</h2>
+        <div class="metric-grid">
+          <div class="metric"><strong>42</strong><span>degree pathways</span></div>
+          <div class="metric"><strong>18:1</strong><span>student faculty ratio</span></div>
+          <div class="metric"><strong>9</strong><span>AI research labs</span></div>
+          <div class="metric"><strong>86%</strong><span>experiential courses</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="programs">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow" style="color: var(--teal);">Academic Schools</span>
+          <h2>Programs with practical pathways.</h2>
+        </div>
+        <p>Choose a field, build a portfolio, and connect your major to AI literacy, entrepreneurship, and community impact.</p>
+      </div>
+
+      <div class="program-controls" aria-label="Program filters">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="technology">Technology</button>
+        <button class="chip" data-filter="business">Business</button>
+        <button class="chip" data-filter="health">Health</button>
+      </div>
+
+      <div class="grid" id="programGrid">
+        <article class="card" data-category="technology">
+          <div class="card-icon">AI</div>
+          <h3>Computer Science and AI</h3>
+          <p>Machine learning, data systems, product engineering, model evaluation, and responsible deployment.</p>
+        </article>
+        <article class="card" data-category="business">
+          <div class="card-icon" style="background: var(--gold);">B</div>
+          <h3>Business Analytics</h3>
+          <p>Finance, operations, marketing intelligence, decision science, and AI-supported strategy.</p>
+        </article>
+        <article class="card" data-category="health">
+          <div class="card-icon" style="background: var(--green);">H</div>
+          <h3>Health Innovation</h3>
+          <p>Digital health, patient data ethics, care design, public health analytics, and clinical simulation.</p>
+        </article>
+        <article class="card" data-category="technology">
+          <div class="card-icon">R</div>
+          <h3>Robotics and Smart Systems</h3>
+          <p>Autonomous systems, sensors, embedded computing, design labs, and field testing.</p>
+        </article>
+        <article class="card" data-category="business">
+          <div class="card-icon" style="background: var(--gold);">E</div>
+          <h3>Entrepreneurship</h3>
+          <p>Venture studios, market research, AI product validation, pitching, and startup finance.</p>
+        </article>
+        <article class="card" data-category="health">
+          <div class="card-icon" style="background: var(--green);">P</div>
+          <h3>Psychology and Learning Science</h3>
+          <p>Human behavior, cognitive science, educational technology, and AI-supported student success.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow" style="color: var(--teal);">Product and Service Features</span>
+          <h2>Digital services that support every learner.</h2>
+        </div>
+        <p>Acllas combines college services with AI-enabled tools that help students plan, study, collaborate, and prepare for careers.</p>
+      </div>
+
+      <div class="features-wrap">
+        <aside class="feature-summary">
+          <h3>Acllas Student Success Platform</h3>
+          <p>A connected service layer for academics, advising, research, career planning, and campus support.</p>
+          <ul>
+            <li>Built for students, faculty, advisors, and partners</li>
+            <li>Designed around privacy, accessibility, and ethical AI</li>
+            <li>Available across desktop and mobile screens</li>
+          </ul>
+        </aside>
+
+        <div class="feature-list">
+          <article class="card feature-card">
+            <div class="card-icon">A</div>
+            <h3>AI Academic Advisor</h3>
+            <p>Helps students compare programs, plan courses, track degree progress, and prepare questions before meeting a human advisor.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="card-icon" style="background: var(--teal);">L</div>
+            <h3>Learning Assistant</h3>
+            <p>Provides study prompts, revision checklists, practice quizzes, and research guidance aligned with course expectations.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="card-icon" style="background: var(--gold);">P</div>
+            <h3>Project Portfolio Builder</h3>
+            <p>Turns class projects, lab work, and service activities into polished case studies for internships and graduate applications.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="card-icon" style="background: var(--green);">C</div>
+            <h3>Career Readiness Services</h3>
+            <p>Supports resume review, interview practice, employer matching, internship tracking, and career coaching appointments.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="card-icon">R</div>
+            <h3>Research Lab Access</h3>
+            <p>Connects students with faculty labs, datasets, AI tools, mentorship circles, and community challenge projects.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="card-icon" style="background: var(--teal);">S</div>
+            <h3>Student Support Hub</h3>
+            <p>Centralizes tutoring, wellness appointments, financial aid reminders, disability services, and campus service requests.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ai-band" id="ai">
+      <div class="ai-layout">
+        <div>
+          <span class="eyebrow">Responsible AI Across Campus</span>
+          <h2>The Acllas AI Initiative turns every student into a capable AI collaborator.</h2>
+          <p>Students learn how to use AI tools critically, build useful systems, protect privacy, reduce bias, and explain technical choices to the communities they serve.</p>
+          <a class="btn btn-primary" href="#admissions">Join the AI Scholars Cohort</a>
+        </div>
+        <div class="ai-list">
+          <article class="ai-item">
+            <b>01</b>
+            <div>
+              <h3>AI Core for every major</h3>
+              <p>Short practical modules cover prompting, data reasoning, automation, verification, and ethical use.</p>
+            </div>
+          </article>
+          <article class="ai-item">
+            <b>02</b>
+            <div>
+              <h3>Applied research labs</h3>
+              <p>Teams work with faculty and partners on agriculture, health, education, climate, and civic technology projects.</p>
+            </div>
+          </article>
+          <article class="ai-item">
+            <b>03</b>
+            <div>
+              <h3>Human-centered governance</h3>
+              <p>Students learn model risk, privacy, accessibility, documentation, and policy through real review boards.</p>
+            </div>
+          </article>
+          <article class="ai-item">
+            <b>04</b>
+            <div>
+              <h3>Career-ready portfolio</h3>
+              <p>Every scholar graduates with case studies, code, presentations, and measurable community outcomes.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="campus">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow" style="color: var(--teal);">Campus Life</span>
+          <h2>Focused, active, and connected.</h2>
+        </div>
+        <p>From innovation studios to quiet study courts, Acllas is designed for students who want serious academics and a full college experience.</p>
+      </div>
+      <div class="split">
+        <div class="campus-photo" role="img" aria-label="Students walking on a college campus"></div>
+        <div class="grid" style="grid-template-columns: 1fr;">
+          <article class="card">
+            <h3>Innovation Studios</h3>
+            <p>Open labs for prototyping, data visualization, media production, startup work, and student-led research.</p>
+          </article>
+          <article class="card">
+            <h3>Advising That Stays Close</h3>
+            <p>Each student has a faculty mentor, a career advisor, and a peer guide from the first semester.</p>
+          </article>
+          <article class="card">
+            <h3>Clubs and Service</h3>
+            <p>AI for Good, Debate Union, Health Tech Society, Robotics Club, Creative Media Lab, and community clinics.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="admissions">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow" style="color: var(--teal);">Admissions</span>
+          <h2>Your route to Acllas.</h2>
+        </div>
+        <p>The admissions process looks for curiosity, discipline, collaboration, and readiness to learn through projects.</p>
+      </div>
+      <div class="timeline">
+        <article class="step">
+          <b>1</b>
+          <div>
+            <h3>Submit your application</h3>
+            <p>Share transcripts, personal statement, recommendation, and your preferred academic school.</p>
+          </div>
+        </article>
+        <article class="step">
+          <b>2</b>
+          <div>
+            <h3>Complete the learning interview</h3>
+            <p>Meet an advisor to discuss your goals, interests, and how you approach problem solving.</p>
+          </div>
+        </article>
+        <article class="step">
+          <b>3</b>
+          <div>
+            <h3>Apply for AI Scholars</h3>
+            <p>Optional applicants submit a short project idea for the AI Initiative scholarship track.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section cta" id="visit">
+      <div class="cta-inner">
+        <div>
+          <h2>Visit Acllas College</h2>
+          <p>Tour the campus, meet faculty, and see student AI projects in the innovation studios.</p>
+        </div>
+        <a class="btn btn-primary" href="mailto:admissions@acllas.college">Schedule a Visit</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div>
+        <h3>Acllas College</h3>
+        <p>Preparing students for thoughtful leadership, advanced technology, and public impact.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <div class="footer-links">
+          <a href="#programs">Programs</a>
+          <a href="#features">Features</a>
+          <a href="#ai">AI Initiative</a>
+          <a href="#campus">Campus Life</a>
+        </div>
+      </div>
+      <div>
+        <h4>Apply</h4>
+        <div class="footer-links">
+          <a href="#admissions">Admissions</a>
+          <a href="#visit">Campus Visit</a>
+          <a href="mailto:admissions@acllas.college">Scholarships</a>
+        </div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div class="footer-links">
+          <a href="mailto:admissions@acllas.college">admissions@acllas.college</a>
+          <a href="tel:+1375578890">+1 375 578 890</a>
+          <span>100 College MI</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const chips = document.querySelectorAll(".chip");
+    const cards = document.querySelectorAll("[data-category]");
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const filter = chip.dataset.filter;
+
+        chips.forEach((item) => item.classList.remove("active"));
+        chip.classList.add("active");
+
+        cards.forEach((card) => {
+          const visible = filter === "all" || card.dataset.category === filter;
+          card.style.display = visible ? "" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
